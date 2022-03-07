@@ -4,6 +4,8 @@ This application uses for creating VietQR code by giving the form your transfer 
 
 VietQR is a common trademark for payment and money transfer using QR Codes through the Napas network and its member banks as well as payment mediators and partners inside and outside Vietnam. It provides an API to generate the code according to Napas's standard.
 
+Here is the link: https://hoangtanphat.github.io/vietqr-code-generator/
+
 ## 1. Frameworks / Libraries
 
 In this project, I'm using:
