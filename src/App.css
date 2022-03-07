@@ -1,0 +1,104 @@
+@font-face {
+  font-family: 'Telegraf-Regular';
+  src: url(./fonts/PPTelegraf-Regular.otf);
+}
+@font-face {
+  font-family: 'Telegraf-Light';
+  src: url(./fonts/PPTelegraf-UltraLight.otf);
+}
+@font-face {
+  font-family: 'Telegraf-Bold';
+  src: url(./fonts/PPTelegraf-UltraBold.otf);
+}
+.fw-bold {
+  font-family: 'Telegraf-Bold';
+}
+.fw-light {
+  font-family: 'Telegraf-Light';
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+body {
+  font-family: 'Telegraf-Regular' !important;
+  background: url('./img/richard-horvath-_nwaetf6qo0-un.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+input, select {
+  border:none !important;
+  box-shadow: none !important;
+}
+
+.loading-text {
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: white;
+}
+.dropdown-toggle::after {
+  display:none !important;
+}
+.form-control:disabled, .form-control[readonly] {
+  border: none;
+  padding: 0;
+  color: black;
+}
+
+.disabled-class {
+  border: 1px solid #c3c3c3;
+}
+.required-field {
+  border-color: red !important;
+}
+
+.error-emptyfield, .error-numbertype {
+  position: absolute;
+  bottom: 5px;
+  right: 15px;
+}
+
+.error-numbertype {
+  color: red !important;
+}
+
+.submit-btn:hover {
+  transform: scale(1.5);
+}
+.transition {
+  transition: all 0.2s linear !important;
+}
+@media (max-width: 575.98px) {
+  .app-container {
+    /* min-width: 570px; */
+    width: 100% !important;
+    height: 70% !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .app-container {
+    width: 100% !important;
+    height: 70% !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .app-container {
+    width: 100% !important;
+    height: 80% !important;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .app-container {
+    width: 60% !important;
+    height: 80% !important;
+  }
+}
