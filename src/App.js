@@ -3,6 +3,9 @@ import "./App.css";
 import { useState, useEffect, useRef } from "react";
 import { Container, Dropdown, Form, FormGroup, Button, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {BsX} from "react-icons/bs";
+import axios from 'axios'
+
 // import DropdownItem from "react-bootstrap/esm/DropdownItem";
 // import { BsChevronDown } from "react-icons/bs";
 const url = "https://api.vietqr.io/v2/banks";
@@ -16,6 +19,9 @@ function App() {
   const [amount, setAmount] = useState("");
   const [description, setDes] = useState("");
   const [qrType, setQrType] = useState("Compact2");
+  // const [responseImg, setResponseImg] = useState("");
+  const [error, setError] = useState(false);
+  const [requestSent, setRequestSent] = useState(false);
   const amountRef = useRef(null);
   const descriptionRef = useRef(null);
   const infor_sent = {
@@ -27,7 +33,6 @@ function App() {
     qrType: qrType.toLowerCase(),
   }
   const reg = new RegExp('^[0-9]+$');
-  console.log(accountID);
   const getBanksListAPI = async () => {
     try {
       const response = await fetch(url);
@@ -42,16 +47,27 @@ function App() {
   useEffect(() => {
     getBanksListAPI();
   }, []);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setError(false);
+    }, 3000
+    )
+    return () => clearTimeout(timeout)
+  },[error])
+  const requestURL = "https://img.vietqr.io/image/" + bankSelect + '-' + infor_sent.number + '-' + infor_sent.qrType + '.png?amount=' + infor_sent.amount + '&addInfo=' + infor_sent.description + '&accountName=' + infor_sent.accountName;
 
   const submitHandler = (e) => {
     e.preventDefault();
     if(reg.test(infor_sent.amount)) {
-      window.location.href="https://img.vietqr.io/image/" + bankSelect + '-' + infor_sent.number + '-' + infor_sent.qrType + '.png?amount=' + infor_sent.amount + '&addInfo=' + infor_sent.description + '&accountName=' + infor_sent.accountName;
+      axios.get(requestURL)
+      .then(data => data.status == "200" ? setRequestSent(true) : setError(true))
+      .catch(error => setError(true))
     } else {
       descriptionRef.current.classList.add("required-field");
       amountRef.current.classList.add("required-field");
     }
   }
+
   const amountHandler = (e) => {
     setAmount(e.target.value);
   }
@@ -66,14 +82,16 @@ function App() {
   }
   return (
     <Container
-      className="d-flex align-items-center"
-      style={{ height: "100vh" }}
+      className="d-flex align-items-center flex-column" id="container"
     >
+      <Container className="py-5 d-flex">
+        <h1 className="text-uppercase fw-bold fs-1 text-center m-auto" style={{color: "white"}}>QR CODE GENERATOR</h1>
+      </Container>
       <Container
-        className="bg-white text-dark p-5 app-container"
-        style={{ width: "40%", height: "80vh", borderRadius: "3rem", boxShadow: '0px 1px 20px rgba(0,0,0,.6)' }}
+        className="bg-white text-dark p-5 app-container m-auto"
+        style={{ width: "40%", height: "fit-content", borderRadius: "3rem", boxShadow: '0px 1px 20px rgba(0,0,0,.6)' }}
       >
-        <Form className="d-flex flex-column justify-content-between" style={{height: "100%"}} onSubmit={submitHandler} >
+        <Form className="d-flex flex-column" style={{height: "100%"}} onSubmit={submitHandler} >
           <FormGroup
             className="disabled-class py-1 px-4"
             style={{ borderRadius: "1.2rem" }}
@@ -96,7 +114,7 @@ function App() {
             </Form.Select>
           </FormGroup>
           <FormGroup
-            className="disabled-class py-1 px-4 position-relative"
+            className="disabled-class py-1 px-4 position-relative mt-3"
             style={{ borderRadius: "1.2rem" }}
           >
             <Form.Text className="text-uppercase fw-light">
@@ -106,7 +124,8 @@ function App() {
               className="fs-5 fw-bold p-0 "
               type="text"
               // placeholder="19031500578010"
-              value={accountID} 
+              value={accountID}
+              maxLength="19" 
               onChange={(e) => setAccountID(e.target.value)}
             />
               <span style={{fontSize: "12px"}} className={`transition error-emptyfield ${!accountID ? 'text-danger':'d-none'}`}>Please enter this field</span>
@@ -114,16 +133,13 @@ function App() {
           </FormGroup>
 
           <FormGroup
-            className="disabled-class py-1 px-4 position-relative"
+            className="disabled-class py-1 px-4 position-relative mt-3"
             style={{ borderRadius: "1.2rem" }}
           >
             <Form.Text className="text-uppercase fw-light">Full Name</Form.Text>
             <Form.Control
               className="fs-5 fw-bold text-uppercase p-0"
               type="text"
-              // placeholder="Nguyen Huynh Quoc Trung"
-              // disabled
-              // readOnly
               value={accountName}
               onChange={(e) => setAccountName(e.target.value)}
             />
@@ -131,20 +147,21 @@ function App() {
 
           </FormGroup>
           <FormGroup
-            className="disabled-class py-1 px-4 position-relative"
+            className="disabled-class py-1 px-4 position-relative mt-3"
             style={{ borderRadius: "1.2rem" }}
             ref={amountRef}>
             <Form.Text className="text-uppercase fw-light">
               Amount (VND)
             </Form.Text>
             <Form.Control className="fs-5 fw-bold p-0" type="text" 
-            // placeholder="Example: 50000" 
+            // placeholder="Example: 50000"
+            maxLength={13} 
             onChange={amountHandler} />
               <span style={{fontSize: "12px"}} className={`transition error-numbertype ${amount && !reg.test(infor_sent.amount) ? 'text-danger':'d-none'}`} id="error-numbertype">Please enter valid number</span>
               <span style={{fontSize: "12px"}} className={`transition error-emptyfield ${!amount ? 'text-danger':'d-none'}`} >Please enter this field</span>
           </FormGroup>
           <FormGroup
-            className="disabled-class py-1 px-4 position-relative"
+            className="disabled-class py-1 px-4 position-relative mt-3"
             style={{ borderRadius: "1.2rem" }}
             ref={descriptionRef}>
             <Form.Text className="text-uppercase fw-light">
@@ -159,7 +176,7 @@ function App() {
               <span style={{fontSize: "12px"}}className={`transition error-emptyfield ${!description ? 'text-danger':'d-none'}`}>Please enter this field</span>
           </FormGroup>
           <FormGroup
-            className="disabled-class py-1 px-4"
+            className="disabled-class py-1 px-4 mt-3"
             style={{ borderRadius: "1.2rem" }}
           >
             <Form.Text className="text-uppercase fw-light">QR Type</Form.Text>
@@ -178,6 +195,15 @@ function App() {
             Generate
           </Button>
         </Form>
+      </Container>
+      <Container className={`warning-alert position-absolute transition d-flex align-items-center ${error ? "opacity-1" : "opacity-0"}`} style={{backgroundColor:"#e35c6a",width:"400px", height:"80px" ,top:"20px", left:"50%",borderRadius:"1.3rem", transform:"translateX(-50%)"}}> 
+              <span className="m-auto fs-6" style={{color: "white"}}>
+                Something went wrong! Please check again
+              </span>
+      </Container>
+      <Container fluid className={`position-absolute transition ${requestSent ? "d-block" : "d-none"}`} style={{backgroundColor:"rgba(0,0,0,0.2)",width:"100%",height:"100%",top:"0", left: "0", bottom:"0", right:"0", backdropFilter:"blur(5px)"}}>
+        <BsX className="position-absolute" style={{width: "50px", height: "auto", top:"2rem", right:"5rem", color: "white", pointer:"cursor"}} onClick={() => setRequestSent(false)}/>
+        <img className="position-absolute qr-code" src={requestURL} style={{width: "350px", height: "auto", top:"50%", left:"50%", transform:"translate(-50%,-50%)", borderRadius:"1.2rem"}} />
       </Container>
     </Container>
   );
