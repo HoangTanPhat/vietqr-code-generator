@@ -202,7 +202,7 @@ function App() {
               </span>
       </Container>
       <Container fluid className={`position-absolute transition ${requestSent ? "d-block" : "d-none"}`} style={{backgroundColor:"rgba(0,0,0,0.2)",width:"100%",height:"100%",top:"0", left: "0", bottom:"0", right:"0", backdropFilter:"blur(5px)"}}>
-        <BsX className="position-absolute" style={{width: "50px", height: "auto", top:"2rem", right:"5rem", color: "white", pointer:"cursor"}} onClick={() => setRequestSent(false)}/>
+        <BsX className="position-absolute" style={{width: "50px", height: "auto", top:"2rem", right:"5rem", color: "white", cursor:"pointer"}} onClick={() => setRequestSent(false)}/>
         <img className="position-absolute qr-code" src={requestURL} style={{width: "350px", height: "auto", top:"50%", left:"50%", transform:"translate(-50%,-50%)", borderRadius:"1.2rem"}} />
       </Container>
     </Container>
