@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/vietqr-code-generator/static/css/main.d804554d.css",
-    "main.js": "/vietqr-code-generator/static/js/main.8052b148.js",
+    "main.css": "/vietqr-code-generator/static/css/main.bb617b60.css",
+    "main.js": "/vietqr-code-generator/static/js/main.ce065abb.js",
     "static/media/richard-horvath-_nwaetf6qo0-un.jpg": "/vietqr-code-generator/static/media/richard-horvath-_nwaetf6qo0-un.2b087507214cc7941523.jpg",
     "static/media/PPTelegraf-UltraBold.otf": "/vietqr-code-generator/static/media/PPTelegraf-UltraBold.c7dfda2145c1bb9ee3e9.otf",
     "static/media/PPTelegraf-Regular.otf": "/vietqr-code-generator/static/media/PPTelegraf-Regular.14ef6b05efc2391733a1.otf",
     "static/media/PPTelegraf-UltraLight.otf": "/vietqr-code-generator/static/media/PPTelegraf-UltraLight.4a2f96a95de82c364433.otf",
     "static/media/logo.svg": "/vietqr-code-generator/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/vietqr-code-generator/index.html",
-    "main.d804554d.css.map": "/vietqr-code-generator/static/css/main.d804554d.css.map",
-    "main.8052b148.js.map": "/vietqr-code-generator/static/js/main.8052b148.js.map"
+    "main.bb617b60.css.map": "/vietqr-code-generator/static/css/main.bb617b60.css.map",
+    "main.ce065abb.js.map": "/vietqr-code-generator/static/js/main.ce065abb.js.map"
   },
   "entrypoints": [
-    "static/css/main.d804554d.css",
-    "static/js/main.8052b148.js"
+    "static/css/main.bb617b60.css",
+    "static/js/main.ce065abb.js"
   ]
 }
