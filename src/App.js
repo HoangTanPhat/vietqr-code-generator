@@ -24,6 +24,8 @@ function App() {
   const [requestSent, setRequestSent] = useState(false);
   const amountRef = useRef(null);
   const descriptionRef = useRef(null);
+  const fullNameRef = useRef(null);
+  const numberRef = useRef(null);
   const infor_sent = {
     bankName: bankSelect,
     accountName: accountName,
@@ -65,6 +67,8 @@ function App() {
     } else {
       descriptionRef.current.classList.add("required-field");
       amountRef.current.classList.add("required-field");
+      fullNameRef.current.classList.add("required-field");
+      numberRef.current.classList.add("required-field");
     }
   }
 
@@ -76,7 +80,8 @@ function App() {
   }
   const selectHandler = (e) => {
     setQrType(e.target.value);
-   }
+  }
+
   if (loading) {
     return <h1 className="loading-text fw-bold">Loading</h1>;
   }
@@ -115,7 +120,7 @@ function App() {
           </FormGroup>
           <FormGroup
             className="disabled-class py-1 px-4 position-relative mt-3"
-            style={{ borderRadius: "1.2rem" }}
+            style={{ borderRadius: "1.2rem" }} ref={numberRef}
           >
             <Form.Text className="text-uppercase fw-light">
               Bank Number
@@ -134,14 +139,14 @@ function App() {
 
           <FormGroup
             className="disabled-class py-1 px-4 position-relative mt-3"
-            style={{ borderRadius: "1.2rem" }}
+            style={{ borderRadius: "1.2rem" }} ref={fullNameRef}
           >
             <Form.Text className="text-uppercase fw-light">Full Name</Form.Text>
             <Form.Control
               className="fs-5 fw-bold text-uppercase p-0"
               type="text"
               value={accountName}
-              onChange={(e) => setAccountName(e.target.value)}
+              onChange={(e) => setAccountName(e.target.value)} 
             />
               <span style={{fontSize: "12px"}} className={`transition error-emptyfield ${!accountName ? 'text-danger':'d-none'}`}>Please enter this field</span>
 
